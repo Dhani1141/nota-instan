@@ -195,27 +195,23 @@ export default function NotaPreview({
             {/* Signature line for Penerima */}
             <div style={{ width: "40mm", borderBottom: "1px solid #000", marginTop: "40px" }} />
 
-            {/* Simulated red "LUNAS" stamp */}
+            {/* Custom "LUNAS" stamp */}
             {isLunas && (
-              <div style={{
-                position: "absolute",
-                top: "20px",
-                left: "40px",
-                border: "4px solid #d32f2f",
-                color: "#d32f2f",
-                fontSize: "32pt",
-                fontWeight: "900",
-                fontFamily: "Impact, sans-serif",
-                letterSpacing: "4px",
-                padding: "0 15px",
-                transform: "rotate(-15deg)",
-                opacity: 0.8,
-                mixBlendMode: "multiply",
-                pointerEvents: "none",
-                borderRadius: "4px"
-              }}>
-                LUNAS
-              </div>
+              <img
+                src="/stempel-lunas.png"
+                alt="Lunas Stamp"
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  left: "20px",
+                  width: "130px",
+                  height: "auto",
+                  opacity: 0.85,
+                  mixBlendMode: "multiply",
+                  pointerEvents: "none",
+                  transform: "rotate(-5deg)"
+                }}
+              />
             )}
           </div>
 
