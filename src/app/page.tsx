@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Printer, FileText, Zap } from "lucide-react";
 import NotaFormWrapper from "@/app/components/NotaFormWrapper";
 import IntroAnimation from "@/app/components/IntroAnimation";
+import Spiderman from "@/app/components/Spiderman";
 
 export const metadata: Metadata = {
   title: "Generator Nota Pembelian — Surya Elektronik Baru",
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <>
       <IntroAnimation />
+      <Spiderman />
       <main className="min-h-screen relative overflow-hidden font-comic">
         
         {/* Comic Decorative Elements */}
