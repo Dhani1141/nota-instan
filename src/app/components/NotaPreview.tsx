@@ -202,9 +202,9 @@ export default function NotaPreview({
                 alt="Lunas Stamp"
                 style={{
                   position: "absolute",
-                  top: "5px",
-                  left: "20px",
-                  width: "130px",
+                  top: "-30px",
+                  left: "15px",
+                  width: "240px",
                   height: "auto",
                   opacity: 0.85,
                   mixBlendMode: "multiply",
