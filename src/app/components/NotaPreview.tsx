@@ -30,7 +30,7 @@ const fmtHarga = (val: string): string => {
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function NotaPreview({
   kepada,
-  notaNo,
+  notaNo, // Not used strictly in this layout but we can put it
   tanggal,
   items,
   grandTotal,
@@ -41,272 +41,215 @@ export default function NotaPreview({
     rows.push({ banyaknya: "", namaBarang: "", harga: "", jumlah: 0 });
   }
 
-  const STAMP = "/1000184563-removebg-preview.png";
-
   // ── Shared styles ──────────────────────────────────────────────────────────
   const tdBase: React.CSSProperties = {
     border: "1px solid #000",
-    padding: "5px 7px",      // ← cukup ruang, tidak mepet
+    padding: "6px 8px",
     fontSize: "10pt",
-    lineHeight: "1.3",
+    lineHeight: "1.2",
     verticalAlign: "middle",
-    height: "22px",
+    height: "26px",
     overflow: "hidden",
     whiteSpace: "nowrap",
   };
 
   const thBase: React.CSSProperties = {
     ...tdBase,
-    fontWeight: "bold",
+    fontWeight: "normal",
     textAlign: "center",
-    background: "#d0d0d0",
-    height: "24px",
-    fontSize: "10pt",
+    height: "36px",
   };
 
   return (
     <div
       style={{
-        fontFamily: '"Times New Roman", Times, serif',
+        fontFamily: "Arial, Helvetica, sans-serif", // Classic sans-serif look
         color: "#000",
         background: "#fff",
-        width: "148mm",
-        minHeight: "210mm",
-        padding: "12mm 14mm 14mm 14mm",
+        width: "148mm", // A5 width
+        minHeight: "210mm", // A5 height
+        padding: "10mm 10mm",
         boxSizing: "border-box",
+        position: "relative",
       }}
     >
-      {/* ══ HEADER ══════════════════════════════════════════════════════════ */}
+      {/* Outer Border Box to simulate the paper borders in the photo */}
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-          marginBottom: "8px",
+          border: "1px solid #000",
+          width: "100%",
+          height: "100%",
+          padding: "5mm",
+          boxSizing: "border-box",
+          position: "relative",
         }}
       >
-        {/* Left — NOTA NO */}
-        <div style={{ alignSelf: "flex-end" }}>
-          <span style={{ fontWeight: "bold", fontSize: "14pt" }}>
-            NOTA NO.&nbsp;
-          </span>
-          <span style={{ fontSize: "13pt", fontWeight: "normal" }}>
-            {notaNo || ""}
-          </span>
-        </div>
-
-        {/* Right — tanggal + kepada */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "5px",
-            width: "58mm",
-          }}
-        >
-          {/* Baris 1 — tanggal */}
-          <div
-            style={{
-              borderBottom: "1px solid #000",
-              fontSize: "10pt",
-              textAlign: "right",
-              paddingBottom: "2px",
-              paddingRight: "2px",
-            }}
-          >
-            {tanggal || "\u00A0"}
-          </div>
-
-          {/* Baris 2 — Kepada + nama */}
-          <div style={{ display: "flex", alignItems: "flex-end", gap: "5px" }}>
-            <span style={{ fontSize: "10pt", whiteSpace: "nowrap", flexShrink: 0 }}>
-              Kepada
-            </span>
-            <div
-              style={{
-                flex: 1,
-                borderBottom: "1px solid #000",
-                fontSize: "10pt",
-                paddingBottom: "2px",
-                paddingLeft: "3px",
-                minWidth: 0,
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {kepada || "\u00A0"}
+        {/* ══ HEADER ══════════════════════════════════════════════════════════ */}
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px" }}>
+          {/* Left Side: Store Info */}
+          <div style={{ textAlign: "center", paddingTop: "10px" }}>
+            <div style={{ fontWeight: "bold", fontSize: "14pt", letterSpacing: "1px" }}>SURYA ELEKTRONIK BARU</div>
+            <div style={{ fontSize: "10pt" }}>JUAL BELI BARANG ELEKTRONIK</div>
+            <div style={{ fontSize: "9pt", fontWeight: "bold", marginTop: "2px" }}>
+              Jl. Teknologi No. 8, Blok C<br />Jakarta Selatan
             </div>
           </div>
 
-          {/* Baris 3 — ekstra (kota / alamat) */}
-          <div
-            style={{
-              borderBottom: "1px solid #000",
-              fontSize: "10pt",
-              minHeight: "16px",
-            }}
-          >
-            &nbsp;
+          {/* Right Side: Date and Customer */}
+          <div style={{ fontSize: "10pt", width: "55mm" }}>
+            {/* Date line */}
+            <div style={{ textAlign: "right", borderBottom: "1px dotted #000", paddingBottom: "2px", marginBottom: "5px" }}>
+              {tanggal || "\u00A0"}
+            </div>
+            
+            {/* Tgl Pemesan */}
+            <div style={{ display: "flex", marginBottom: "5px" }}>
+              <span style={{ width: "22px" }}>Tgl.</span>
+              <span style={{ borderBottom: "1px dotted #000", flex: 1 }}></span>
+            </div>
+            <div style={{ display: "flex", marginBottom: "5px" }}>
+              <span style={{ width: "60px" }}>Pemesan</span>
+              <span style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px" }}>{kepada}</span>
+            </div>
+
+            {/* Alamat */}
+            <div style={{ display: "flex", alignItems: "flex-end" }}>
+              <span style={{ width: "45px" }}>Alamat</span>
+              <span style={{ borderBottom: "1px dotted #000", flex: 1 }}></span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ══ TABLE ═══════════════════════════════════════════════════════════ */}
-      <table
-        style={{
-          borderCollapse: "collapse",
-          width: "100%",
-          tableLayout: "fixed",
-          marginBottom: "0",
-        }}
-      >
-        <colgroup>
-          <col style={{ width: "20%" }} />
-          <col style={{ width: "40%" }} />
-          <col style={{ width: "20%" }} />
-          <col style={{ width: "20%" }} />
-        </colgroup>
-        <thead>
-          <tr>
-            <th style={{ ...thBase, textAlign: "center" }}>BANYAKNYA</th>
-            <th style={{ ...thBase, textAlign: "center" }}>NAMA BARANG</th>
-            <th style={{ ...thBase, textAlign: "center" }}>HARGA</th>
-            <th style={{ ...thBase, textAlign: "center" }}>JUMLAH</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, idx) => (
-            <tr key={idx}>
-              <td style={{ ...tdBase, textAlign: "center" }}>
-                {row.banyaknya || ""}
-              </td>
-              <td style={{ ...tdBase, textAlign: "left" }}>
-                {row.namaBarang || ""}
-              </td>
-              <td style={{ ...tdBase, textAlign: "right" }}>
-                {fmtHarga(row.harga)}
-              </td>
-              <td style={{ ...tdBase, textAlign: "right" }}>
-                {row.jumlah > 0 ? fmtNum(row.jumlah) : ""}
-              </td>
+        {/* ══ TITLE ═══════════════════════════════════════════════════════════ */}
+        <div style={{ fontWeight: "bold", fontSize: "12pt", marginBottom: "2px", marginTop: "10px" }}>
+          NOTA KONTAN {notaNo ? `No. ${notaNo}` : ""}
+        </div>
+        <div style={{ borderBottom: "2px solid #000", marginBottom: "1px" }}></div>
+        <div style={{ borderBottom: "1px solid #000", marginBottom: "8px" }}></div>
+
+        {/* ══ TABLE ═══════════════════════════════════════════════════════════ */}
+        <table
+          style={{
+            borderCollapse: "collapse",
+            width: "100%",
+            tableLayout: "fixed",
+            border: "1px solid #000"
+          }}
+        >
+          <colgroup>
+            <col style={{ width: "15%" }} />
+            <col style={{ width: "45%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "20%" }} />
+          </colgroup>
+          <thead>
+            <tr>
+              <th style={thBase}>Banyak<br/>nya</th>
+              <th style={thBase}>NAMA BARANG</th>
+              <th style={thBase}>HARGA</th>
+              <th style={thBase}>JUMLAH</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((row, idx) => (
+              <tr key={idx}>
+                <td style={{ ...tdBase, textAlign: "center" }}>
+                  {row.banyaknya || ""}
+                </td>
+                <td style={{ ...tdBase, textAlign: "left" }}>
+                  {row.namaBarang || ""}
+                </td>
+                <td style={{ ...tdBase, textAlign: "center" }}>
+                  {fmtHarga(row.harga)}
+                </td>
+                <td style={{ ...tdBase, textAlign: "center" }}>
+                  {row.jumlah > 0 ? fmtNum(row.jumlah) : ""}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {/* ══ JUMLAH RP ════════════════════════════════════════════════════════ */}
-      {/*
-        Layout: [garis kiri untuk tanda terima]  [Jumlah Rp. | angka]
-        Lebar "Jumlah Rp. | angka" = 40% table = kolom HARGA+JUMLAH
-      */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "stretch",
-        }}
-      >
-        {/* Spacer kiri */}
-        <div style={{ flex: 1, display: "flex", alignItems: "flex-end", paddingBottom: "4px" }}>
-          <div style={{ width: "38mm", borderBottom: "1px solid #000" }} />
+        {/* ══ FOOTER & TOTALS ══════════════════════════════════════════════════ */}
+        <div style={{ display: "flex", marginTop: "0" }}>
+          {/* Left section: Tanda Terima & Perhatian */}
+          <div style={{ flex: 1, position: "relative", paddingTop: "5px" }}>
+            <div style={{ display: "flex", marginTop: "5px" }}>
+              <span style={{ fontSize: "10pt" }}>Penerima,</span>
+              <div style={{ 
+                border: "1px solid #000", 
+                padding: "4px", 
+                marginLeft: "10px", 
+                fontSize: "8pt", 
+                width: "45mm",
+                lineHeight: "1.2"
+              }}>
+                <b>PERHATIAN :</b><br/>
+                Barang yang sudah dibeli tidak dapat ditukar atau dikembalikan kecuali ada perjanjian
+              </div>
+            </div>
+
+            {/* Signature line for Penerima */}
+            <div style={{ width: "40mm", borderBottom: "1px solid #000", marginTop: "40px" }} />
+
+            {/* Simulated red "LUNAS" stamp */}
+            {grandTotal > 0 && (
+              <div style={{
+                position: "absolute",
+                top: "20px",
+                left: "40px",
+                border: "4px solid #d32f2f",
+                color: "#d32f2f",
+                fontSize: "32pt",
+                fontWeight: "900",
+                fontFamily: "Impact, sans-serif",
+                letterSpacing: "4px",
+                padding: "0 15px",
+                transform: "rotate(-15deg)",
+                opacity: 0.8,
+                mixBlendMode: "multiply",
+                pointerEvents: "none",
+                borderRadius: "4px"
+              }}>
+                LUNAS
+              </div>
+            )}
+          </div>
+
+          {/* Right section: Totals Grid */}
+          <div style={{ width: "55mm", borderLeft: "1px solid #000" }}>
+            {/* Jumlah */}
+            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt" }}>
+                Jumlah &nbsp;&nbsp;&nbsp;&nbsp;Rp.
+              </div>
+              <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", fontWeight: "bold", textAlign: "right" }}>
+                {grandTotal > 0 ? fmtNum(grandTotal) : ""}
+              </div>
+            </div>
+            
+            {/* Uang Muka */}
+            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt" }}>
+                Uang Muka Rp.
+              </div>
+              <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
+                {/* Kosong */}
+              </div>
+            </div>
+
+            {/* Sisa */}
+            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", letterSpacing: "2px" }}>
+                S i s a &nbsp;&nbsp;&nbsp;&nbsp;Rp.
+              </div>
+              <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
+                {/* Kosong */}
+              </div>
+            </div>
+
+          </div>
         </div>
-
-        {/* Label "Jumlah Rp." */}
-        <div
-          style={{
-            border: "1px solid #000",
-            borderTop: "none",
-            padding: "5px 8px",
-            fontSize: "10pt",
-            whiteSpace: "nowrap",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          Jumlah Rp.
-        </div>
-
-        {/* Angka total (lebar = kolom JUMLAH = 20%) */}
-        <div
-          style={{
-            border: "1px solid #000",
-            borderTop: "none",
-            borderLeft: "none",
-            padding: "5px 8px",
-            fontSize: "10pt",
-            fontWeight: grandTotal > 0 ? "bold" : "normal",
-            textAlign: "right",
-            width: "20%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          {grandTotal > 0 ? fmtNum(grandTotal) : ""}
-        </div>
-      </div>
-
-      {/* ══ FOOTER ═══════════════════════════════════════════════════════════ */}
-      {/*
-        Dibuat dengan position:relative agar stempel (position:absolute)
-        bisa ditempatkan di sudut kanan atas footer, overlap "Hormat Kami,"
-        Ruang footer cukup besar (60mm min-height) agar stempel tidak keluar.
-      */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "14px",
-          position: "relative",
-          minHeight: "62mm",
-        }}
-      >
-        {/* Kiri — Tanda Terima */}
-        <div>
-          <p style={{ margin: "0 0 32px 0", fontSize: "10.5pt" }}>
-            Tanda Terima
-          </p>
-          <div style={{ width: "38mm", borderBottom: "1px solid #000" }} />
-        </div>
-
-        {/* Kanan — Hormat Kami + garis tanda tangan */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-        >
-          <p style={{ margin: "0 0 0 0", fontSize: "10.5pt" }}>Hormat Kami,</p>
-          {/* Garis tanda tangan — ada jarak dari "Hormat Kami," */}
-          <div
-            style={{
-              width: "38mm",
-              borderBottom: "1px solid #000",
-              marginTop: "52px",
-            }}
-          />
-        </div>
-
-        {/* Stempel — absolute, besar, di kanan atas footer,
-            sengaja overlap "Hormat Kami," dari atas */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={STAMP}
-          alt="Stempel Surya Elektronik Baru"
-          style={{
-            position: "absolute",
-            right: "0mm",
-            top: "-6mm",         // naik sedikit ke atas "Hormat Kami,"
-            width: "48mm",       // ukuran besar agar bulat terlihat jelas
-            height: "48mm",
-            objectFit: "contain",
-            opacity: 0.92,
-            mixBlendMode: "multiply",
-          }}
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = "none";
-          }}
-        />
       </div>
     </div>
   );
