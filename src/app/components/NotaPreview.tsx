@@ -161,8 +161,8 @@ export default function NotaPreview({
         }}
       >
         <colgroup>
-          <col style={{ width: "18%" }} />
-          <col style={{ width: "42%" }} />
+          <col style={{ width: "20%" }} />
+          <col style={{ width: "40%" }} />
           <col style={{ width: "20%" }} />
           <col style={{ width: "20%" }} />
         </colgroup>
