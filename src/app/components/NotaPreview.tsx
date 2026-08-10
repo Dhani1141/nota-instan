@@ -50,7 +50,10 @@ export default function NotaPreview({
 
   // ── Shared styles ──────────────────────────────────────────────────────────
   const tdBase: React.CSSProperties = {
-    border: "1px solid #000",
+    borderBottom: "1px solid #000",
+    borderTop: "none",
+    borderLeft: "none",
+    borderRight: "1px solid #000",
     padding: "6px 8px",
     fontSize: "10pt",
     lineHeight: "1.2",
@@ -60,11 +63,23 @@ export default function NotaPreview({
     whiteSpace: "nowrap",
   };
 
+  const tdLast: React.CSSProperties = {
+    ...tdBase,
+    borderRight: "none",
+  };
+
   const thBase: React.CSSProperties = {
     ...tdBase,
+    borderTop: "1px solid #000",
+    borderBottom: "1px solid #000",
     fontWeight: "normal",
     textAlign: "center",
     height: "36px",
+  };
+
+  const thLast: React.CSSProperties = {
+    ...thBase,
+    borderRight: "none",
   };
 
   return (
@@ -134,8 +149,7 @@ export default function NotaPreview({
           style={{
             borderCollapse: "collapse",
             width: "100%",
-            tableLayout: "fixed",
-            border: "1px solid #000"
+            tableLayout: "fixed"
           }}
         >
           <colgroup>
@@ -149,7 +163,7 @@ export default function NotaPreview({
               <th style={thBase}>Banyak<br/>nya</th>
               <th style={thBase}>NAMA BARANG</th>
               <th style={thBase}>HARGA</th>
-              <th style={thBase}>JUMLAH</th>
+              <th style={thLast}>JUMLAH</th>
             </tr>
           </thead>
           <tbody>
@@ -164,7 +178,7 @@ export default function NotaPreview({
                 <td style={{ ...tdBase, textAlign: "center" }}>
                   {fmtHarga(row.harga)}
                 </td>
-                <td style={{ ...tdBase, textAlign: "center" }}>
+                <td style={{ ...tdLast, textAlign: "center" }}>
                   {row.jumlah > 0 ? fmtNum(row.jumlah) : ""}
                 </td>
               </tr>
@@ -215,33 +229,33 @@ export default function NotaPreview({
           </div>
 
           {/* Right section: Totals Grid */}
-          <div style={{ width: "55mm", borderLeft: "1px solid #000" }}>
+          <div style={{ width: "65mm", paddingTop: "5px" }}>
             {/* Jumlah */}
-            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
-              <div style={{ flex: 1, padding: "5px", fontSize: "10pt" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", textAlign: "right" }}>
                 Jumlah &nbsp;&nbsp;&nbsp;&nbsp;Rp.
               </div>
-              <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", fontWeight: "bold", textAlign: "right" }}>
+              <div style={{ width: "28mm", border: "1px solid #000", borderBottom: "none", padding: "5px", fontSize: "10pt", fontWeight: "bold", textAlign: "right" }}>
                 {grandTotal > 0 ? fmtNum(grandTotal) : ""}
               </div>
             </div>
             
             {/* Uang Muka */}
-            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
-              <div style={{ flex: 1, padding: "5px", fontSize: "10pt" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", textAlign: "right" }}>
                 Uang Muka Rp.
               </div>
-              <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
+              <div style={{ width: "28mm", border: "1px solid #000", borderBottom: "none", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
                 {uangMuka > 0 ? fmtNum(uangMuka) : ""}
               </div>
             </div>
 
             {/* Sisa / Kembali */}
-            <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
-              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", letterSpacing: uangMuka > grandTotal ? "0px" : "2px" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", letterSpacing: uangMuka > grandTotal ? "0px" : "2px", textAlign: "right" }}>
                 {uangMuka > grandTotal ? "Kembali" : "S i s a"} &nbsp;&nbsp;&nbsp;&nbsp;Rp.
               </div>
-              <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
+              <div style={{ width: "28mm", border: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
                 {uangMuka > grandTotal 
                   ? fmtNum(uangMuka - grandTotal) 
                   : (sisa > 0 ? fmtNum(sisa) : (grandTotal > 0 && sisa <= 0 ? "0" : ""))}
