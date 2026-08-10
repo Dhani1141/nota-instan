@@ -11,6 +11,7 @@ interface NotaPreviewProps {
   kepada: string;
   notaNo: string;
   tanggal: string;
+  uangMuka?: number;
   items: NotaItem[];
   grandTotal: number;
 }
@@ -32,6 +33,7 @@ export default function NotaPreview({
   kepada,
   notaNo, // Not used strictly in this layout but we can put it
   tanggal,
+  uangMuka = 0,
   items,
   grandTotal,
 }: NotaPreviewProps) {
@@ -40,6 +42,9 @@ export default function NotaPreview({
   while (rows.length < MIN_ROWS) {
     rows.push({ banyaknya: "", namaBarang: "", harga: "", jumlah: 0 });
   }
+
+  const sisa = grandTotal - uangMuka;
+  const isLunas = grandTotal > 0 && sisa <= 0;
 
   // ── Shared styles ──────────────────────────────────────────────────────────
   const tdBase: React.CSSProperties = {
@@ -193,7 +198,7 @@ export default function NotaPreview({
             <div style={{ width: "40mm", borderBottom: "1px solid #000", marginTop: "40px" }} />
 
             {/* Simulated red "LUNAS" stamp */}
-            {grandTotal > 0 && (
+            {isLunas && (
               <div style={{
                 position: "absolute",
                 top: "20px",
@@ -234,7 +239,7 @@ export default function NotaPreview({
                 Uang Muka Rp.
               </div>
               <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
-                {/* Kosong */}
+                {uangMuka > 0 ? fmtNum(uangMuka) : ""}
               </div>
             </div>
 
@@ -244,7 +249,7 @@ export default function NotaPreview({
                 S i s a &nbsp;&nbsp;&nbsp;&nbsp;Rp.
               </div>
               <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
-                {/* Kosong */}
+                {sisa > 0 ? fmtNum(sisa) : (grandTotal > 0 && sisa <= 0 ? "0" : "")}
               </div>
             </div>
 

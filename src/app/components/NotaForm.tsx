@@ -25,6 +25,7 @@ export interface NotaData {
   kepada: string;
   notaNo: string;
   tanggal: string;
+  uangMuka: string;
   items: BarangItem[];
 }
 
@@ -66,6 +67,7 @@ export default function NotaForm() {
     kepada: "",
     notaNo: "",
     tanggal: getTodayString(),
+    uangMuka: "",
     items: [createEmptyItem(), createEmptyItem(), createEmptyItem()],
   });
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
@@ -403,10 +405,23 @@ export default function NotaForm() {
 
         {/* ── Grand Total ────────────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-6 mt-8 bg-magenta-400 border-4 border-black shadow-[8px_8px_0_#000] transform rotate-1" style={{ backgroundColor: 'var(--accent-primary)' }}>
-          <span className="text-xl font-black uppercase text-white drop-shadow-[2px_2px_0_#000]">
-            Total Jumlah Rp.
-          </span>
-          <span className="text-3xl font-black bg-white px-4 py-2 border-4 border-black shadow-[4px_4px_0_#000] transform -rotate-2 mt-4 sm:mt-0">
+          <div className="flex flex-col gap-2">
+            <span className="text-xl font-black uppercase text-white drop-shadow-[2px_2px_0_#000]">
+              Total Jumlah Rp.
+            </span>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="font-bold text-white uppercase text-sm drop-shadow-[1px_1px_0_#000]">Uang Muka Rp.</span>
+              <input
+                type="number"
+                min="0"
+                className="comic-input px-3 py-2 text-lg text-right w-32 sm:w-40 transform -rotate-1 shadow-[2px_2px_0_#000]"
+                placeholder="0"
+                value={notaData.uangMuka}
+                onChange={(e) => updateField("uangMuka", e.target.value)}
+              />
+            </div>
+          </div>
+          <span className="text-3xl font-black bg-white px-4 py-2 border-4 border-black shadow-[4px_4px_0_#000] transform -rotate-2 mt-4 sm:mt-0 self-start sm:self-center">
             {grandTotal > 0 ? `Rp ${formatRupiah(grandTotal)}` : "Rp 0"}
           </span>
         </div>
@@ -470,6 +485,7 @@ export default function NotaForm() {
             kepada={notaData.kepada}
             notaNo={notaData.notaNo}
             tanggal={notaData.tanggal}
+            uangMuka={parseNumber(notaData.uangMuka)}
             items={itemsWithJumlah.map((item) => ({
               banyaknya: item.banyaknya,
               namaBarang: item.namaBarang,
