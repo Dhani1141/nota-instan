@@ -106,19 +106,19 @@ export default function NotaPreview({
           <div style={{ fontSize: "10pt", width: "65mm" }}>
             
             {/* Tgl Pemesan */}
-            <div style={{ display: "flex", marginBottom: "5px" }}>
-              <span style={{ width: "25px" }}>Tgl.</span>
-              <span style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px" }}>{tanggal}</span>
+            <div style={{ display: "flex", alignItems: "flex-end", marginBottom: "5px" }}>
+              <span style={{ width: "30px", paddingBottom: "2px" }}>Tgl.</span>
+              <div style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px", paddingBottom: "2px" }}>{tanggal}</div>
             </div>
-            <div style={{ display: "flex", marginBottom: "5px" }}>
-              <span style={{ width: "60px" }}>Pemesan</span>
-              <span style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px" }}>{kepada}</span>
+            <div style={{ display: "flex", alignItems: "flex-end", marginBottom: "5px" }}>
+              <span style={{ width: "60px", paddingBottom: "2px" }}>Pemesan</span>
+              <div style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px", paddingBottom: "2px" }}>{kepada}</div>
             </div>
 
             {/* Alamat */}
             <div style={{ display: "flex", alignItems: "flex-end" }}>
-              <span style={{ width: "45px" }}>Alamat</span>
-              <span style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px" }}>{alamat}</span>
+              <span style={{ width: "45px", paddingBottom: "2px" }}>Alamat</span>
+              <div style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px", paddingBottom: "2px" }}>{alamat}</div>
             </div>
           </div>
         </div>
