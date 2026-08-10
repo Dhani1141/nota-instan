@@ -80,10 +80,9 @@ export default function NotaPreview({
         position: "relative",
       }}
     >
-      {/* Outer Border Box to simulate the paper borders in the photo */}
+      {/* Outer wrapper without the black border */}
       <div
         style={{
-          border: "1px solid #000",
           width: "100%",
           height: "100%",
           padding: "5mm",
@@ -95,7 +94,7 @@ export default function NotaPreview({
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "15px" }}>
           {/* Left Side: Store Info */}
           <div style={{ textAlign: "center", paddingTop: "10px" }}>
-            <div style={{ fontWeight: "bold", fontSize: "14pt", letterSpacing: "1px" }}>SURYA ELEKTRONIK BARU</div>
+            <div style={{ fontWeight: "bold", fontSize: "14pt", letterSpacing: "1px" }}>PT. SURYA ELEKTRONIK BARU</div>
             <div style={{ fontSize: "10pt" }}>JUAL BELI BARANG ELEKTRONIK</div>
             <div style={{ fontSize: "9pt", fontWeight: "bold", marginTop: "2px" }}>
               Jl. Teknologi No. 8, Blok C<br />Jakarta Selatan

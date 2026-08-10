@@ -46,7 +46,7 @@ export default function Home() {
                   Nota Generator
                 </h1>
                 <p className="text-sm font-bold text-gray-700">
-                  Surya Elektronik Baru
+                  PT. Surya Elektronik Baru
                 </p>
               </div>
             </div>
