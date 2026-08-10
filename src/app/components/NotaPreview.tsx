@@ -9,6 +9,7 @@ interface NotaItem {
 
 interface NotaPreviewProps {
   kepada: string;
+  alamat?: string;
   notaNo: string;
   tanggal: string;
   uangMuka?: number;
@@ -31,6 +32,7 @@ const fmtHarga = (val: string): string => {
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function NotaPreview({
   kepada,
+  alamat = "",
   notaNo, // Not used strictly in this layout but we can put it
   tanggal,
   uangMuka = 0,
@@ -101,16 +103,12 @@ export default function NotaPreview({
           </div>
 
           {/* Right Side: Date and Customer */}
-          <div style={{ fontSize: "10pt", width: "55mm" }}>
-            {/* Date line */}
-            <div style={{ textAlign: "right", borderBottom: "1px dotted #000", paddingBottom: "2px", marginBottom: "5px" }}>
-              {tanggal || "\u00A0"}
-            </div>
+          <div style={{ fontSize: "10pt", width: "65mm" }}>
             
             {/* Tgl Pemesan */}
             <div style={{ display: "flex", marginBottom: "5px" }}>
-              <span style={{ width: "22px" }}>Tgl.</span>
-              <span style={{ borderBottom: "1px dotted #000", flex: 1 }}></span>
+              <span style={{ width: "25px" }}>Tgl.</span>
+              <span style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px" }}>{tanggal}</span>
             </div>
             <div style={{ display: "flex", marginBottom: "5px" }}>
               <span style={{ width: "60px" }}>Pemesan</span>
@@ -120,7 +118,7 @@ export default function NotaPreview({
             {/* Alamat */}
             <div style={{ display: "flex", alignItems: "flex-end" }}>
               <span style={{ width: "45px" }}>Alamat</span>
-              <span style={{ borderBottom: "1px dotted #000", flex: 1 }}></span>
+              <span style={{ borderBottom: "1px dotted #000", flex: 1, paddingLeft: "4px" }}>{alamat}</span>
             </div>
           </div>
         </div>

@@ -23,6 +23,7 @@ export interface BarangItem {
 
 export interface NotaData {
   kepada: string;
+  alamat: string;
   notaNo: string;
   tanggal: string;
   uangMuka: string;
@@ -65,6 +66,7 @@ export default function NotaForm() {
 
   const [notaData, setNotaData] = useState<NotaData>({
     kepada: "",
+    alamat: "",
     notaNo: "",
     tanggal: getTodayString(),
     uangMuka: "",
@@ -214,9 +216,9 @@ export default function NotaForm() {
         </div>
 
         {/* ── Header fields ──────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Kepada */}
-          <div className="sm:col-span-1">
+          <div>
             <label
               htmlFor="field-kepada"
               className="flex items-center gap-1.5 font-bold mb-2 uppercase text-black"
@@ -231,6 +233,24 @@ export default function NotaForm() {
               placeholder="Nama pelanggan..."
               value={notaData.kepada}
               onChange={(e) => updateField("kepada", e.target.value)}
+            />
+          </div>
+
+          {/* Alamat */}
+          <div>
+            <label
+              htmlFor="field-alamat"
+              className="flex items-center gap-1.5 font-bold mb-2 uppercase text-black"
+            >
+              📍 Alamat
+            </label>
+            <input
+              id="field-alamat"
+              type="text"
+              className="comic-input w-full px-4 py-3 text-lg"
+              placeholder="Alamat lengkap..."
+              value={notaData.alamat}
+              onChange={(e) => updateField("alamat", e.target.value)}
             />
           </div>
 
@@ -483,6 +503,7 @@ export default function NotaForm() {
         <div ref={printRef} id="nota-print-area">
           <NotaPreview
             kepada={notaData.kepada}
+            alamat={notaData.alamat}
             notaNo={notaData.notaNo}
             tanggal={notaData.tanggal}
             uangMuka={parseNumber(notaData.uangMuka)}
