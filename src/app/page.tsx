@@ -3,6 +3,8 @@ import { Printer, FileText, Zap } from "lucide-react";
 import NotaFormWrapper from "@/app/components/NotaFormWrapper";
 import IntroAnimation from "@/app/components/IntroAnimation";
 import Spiderman from "@/app/components/Spiderman";
+import HulkSmash from "@/app/components/HulkSmash";
+import ZapEasterEgg from "@/app/components/ZapEasterEgg";
 
 export const metadata: Metadata = {
   title: "Generator Nota Pembelian — Surya Elektronik Baru",
@@ -15,6 +17,7 @@ export default function Home() {
     <>
       <IntroAnimation />
       <Spiderman />
+      <HulkSmash />
       <main className="min-h-screen relative overflow-hidden font-comic">
         
         {/* Comic Decorative Elements */}
@@ -23,10 +26,8 @@ export default function Home() {
             BAM!
           </div>
         </div>
-        <div className="absolute top-40 right-10 transform rotate-12 select-none pointer-events-none z-0">
-          <div className="bg-yellow-300 border-4 border-black px-4 py-2 text-xl font-black italic shadow-[4px_4px_0_#000]">
-            ZAP!
-          </div>
+        <div className="absolute top-40 right-10 transform rotate-12 z-[50]">
+          <ZapEasterEgg />
         </div>
         
         {/* ── Header ───────────────────────────────────────────────────────── */}
