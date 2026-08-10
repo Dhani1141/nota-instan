@@ -10,8 +10,10 @@ import {
   Package,
   User,
   Hash,
+  Save,
 } from "lucide-react";
 import NotaPreview from "./NotaPreview";
+import PdfLoadingAnimation from "./PdfLoadingAnimation";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 export interface BarangItem {
@@ -155,7 +157,7 @@ export default function NotaForm() {
       await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
 
       const canvas = await html2canvas(el, {
-        scale: 3,
+        scale: 2, // Reduced scale from 3 to 2 for much smaller size while keeping text sharp
         useCORS: true,
         allowTaint: true,
         backgroundColor: "#ffffff",
@@ -172,7 +174,8 @@ export default function NotaForm() {
         throw new Error("Canvas kosong");
       }
 
-      const imgData = canvas.toDataURL("image/png");
+      // Convert to JPEG with 0.8 quality instead of uncompressed PNG
+      const imgData = canvas.toDataURL("image/jpeg", 0.8);
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
@@ -181,7 +184,7 @@ export default function NotaForm() {
 
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height / canvas.width) * pdfWidth;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight, undefined, 'FAST'); // Use 'FAST' compression alias
       pdf.save(`Nota-${notaData.notaNo || "baru"}-${Date.now()}.pdf`);
     } catch (err) {
       console.error("Gagal generate PDF:", err);
@@ -195,6 +198,8 @@ export default function NotaForm() {
   // ─────────────────────────────────────────────────────────────────────────
   return (
     <div className="space-y-8 font-comic">
+      <PdfLoadingAnimation isVisible={isGeneratingPdf} />
+      
       {/* ── Form Card ─────────────────────────────────────────────────── */}
       <div className="comic-card p-6 sm:p-8 relative">
         {/* Decorative Tape */}
