@@ -241,13 +241,15 @@ export default function NotaPreview({
               </div>
             </div>
 
-            {/* Sisa */}
+            {/* Sisa / Kembali */}
             <div style={{ display: "flex", borderBottom: "1px solid #000" }}>
-              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", letterSpacing: "2px" }}>
-                S i s a &nbsp;&nbsp;&nbsp;&nbsp;Rp.
+              <div style={{ flex: 1, padding: "5px", fontSize: "10pt", letterSpacing: uangMuka > grandTotal ? "0px" : "2px" }}>
+                {uangMuka > grandTotal ? "Kembali" : "S i s a"} &nbsp;&nbsp;&nbsp;&nbsp;Rp.
               </div>
               <div style={{ width: "28mm", borderLeft: "1px solid #000", padding: "5px", fontSize: "10pt", textAlign: "right" }}>
-                {sisa > 0 ? fmtNum(sisa) : (grandTotal > 0 && sisa <= 0 ? "0" : "")}
+                {uangMuka > grandTotal 
+                  ? fmtNum(uangMuka - grandTotal) 
+                  : (sisa > 0 ? fmtNum(sisa) : (grandTotal > 0 && sisa <= 0 ? "0" : ""))}
               </div>
             </div>
 
